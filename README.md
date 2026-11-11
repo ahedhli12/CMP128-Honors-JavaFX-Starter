@@ -1,54 +1,70 @@
 # CMP 128 Honors JavaFX Starter
 
-For the **CMP 128 Honors Option GUI Project**. Follow your professor's project instructions, progress meetings, and submission requirements.
+Use this starter for your professor's Honors GUI project. It includes a working installation test and an automatic application launcher.
 
-## Simple setup
-This version uses a downloaded JavaFX SDK, like the manual setup used in the reference lab. **No Maven project wizard or Maven installation is needed.** This replaces the Maven setup steps in the original project handout; the professor should distribute the updated setup instructions with the project.
+## Setup
+1. Create your own copy of this repository, clone it, and open the whole folder in VS Code.
+2. Use an installed full JDK and Microsoft's **Extension Pack for Java**. Ask IT if these are unavailable in the VM.
+3. If JavaFX is not already supplied, download the **JavaFX SDK** for your operating system and architecture from [Gluon](https://gluonhq.com/products/javafx/). Use a version compatible with your JDK; JDK 21 and JavaFX SDK 21 are the recommended baseline here.
+4. **Extract the ZIP.** Open the extracted **lib** folder and confirm it contains `javafx.controls.jar`.
+5. In `.vscode/settings.json`, replace the example library path with your real path, keeping `/*.jar` at the end:
+   ```json
+   "java.project.referencedLibraries": [
+     "C:/Users/Student/Downloads/javafx-sdk-21/lib/*.jar"
+   ]
+   ```
+6. Save. Open **Run and Debug** with **Ctrl+Shift+D**, select **Run Honors JavaFX**, and click Run.
+7. When prompted, paste that same **lib folder path**, without quotation marks or `/*.jar`:
+   ```text
+   C:/Users/Student/Downloads/javafx-sdk-21/lib
+   ```
 
-1. Create your own repository using Use this template, or Fork.
-2. Clone your copy and open its entire folder in VS Code.
-3. Read [SETUP.md](SETUP.md).
-4. Add your JavaFX SDK library path to .vscode/settings.json as explained there.
-5. Select **Run Honors JavaFX** in Run and Debug.
-6. Paste that same SDK lib folder path when prompted.
-7. Run JavaFXInstallTest before starting your project.
+No Maven or project-generation wizard is needed. This manual SDK setup replaces the Maven setup section of the original handout. An installed JDK is still required. Select it with **Java: Configure Java Runtime**; ask IT if the VM prevents this.
 
-**No Java filename needs to be entered in settings.json or launch.json.**
+## Run your own project
+Keep `.java` files in the project root, with no package declaration. Your public class name must match its filename and your GUI class must extend `Application`.
 
-## Your Java files
-Keep your .java files directly in this project folder. Do not add package declarations for this simple setup. A public class name must match its filename.
+**Do not change Java class names in launch.json or settings.json.** HonorsLauncher finds compiled JavaFX applications automatically. With several applications, choose a number in the terminal. Keep HonorsLauncher.java unchanged.
 
-HonorsLauncher automatically finds compiled classes that extend Application:
-- With one application, it runs that application.
-- With several applications, it asks you to choose a number in the terminal.
-- It ignores ordinary helper classes.
+First run JavaFXInstallTest: enter a name, click the button, and confirm the greeting and click count. Close the window before running again.
 
-You may rename JavaFXInstallTest.java and its public class together, or write your own new application file. The launcher and configuration do not need renaming. Keep HonorsLauncher.java unchanged. This supports JavaFX Application classes in this project, not arbitrary files or packaged projects.
+## Honors project checklist
+Follow your professor's instructions:
+- Get topic approval and meet approximately every two weeks.
+- Create input, output, and interaction with JavaFX.
+- Use an array or ArrayList, decisions, loops, and purposeful methods.
+- Add a student-designed class/object if appropriate and approved.
+- Include comments and helpful validation messages.
+- Document at least five tests, including invalid input and a boundary case.
+- Complete AI-Use-Report.md and prepare your Student Showcase presentation.
 
-## Project requirements
-- Obtain your professor's approval for your topic.
-- Create a JavaFX interface with input, output, and user interaction.
-- Store a collection in an array or ArrayList.
-- Use loops and decisions to validate input and process data.
-- Organize your work into purposeful methods.
-- Add a student-designed class/object when appropriate and approved.
-- Use clear names, comments, and helpful validation messages.
-- Document at least five tests including boundary and invalid input.
-- Meet with your professor approximately every two weeks.
-- Prepare and present your Student Showcase materials.
+## Student project notes
+Complete these here before submission:
+- Name and approved project title:
+- Purpose and intended users:
+- Features and stored data:
+- Progress meeting dates and feedback:
+- Technical challenge and solution:
+- Known limitations:
 
-## Student project description
-Name:
-Approved title:
-Purpose and users:
-Features:
-Input and stored data:
-How to run:
-Meaningful Copilot use or statement of no use:
-Known limitations:
+| Test | Input or steps | Expected result | Actual result |
+|---|---|---|---|
+| Normal | TODO | TODO | TODO |
+| Normal | TODO | TODO | TODO |
+| Invalid | TODO | TODO | TODO |
+| Boundary | TODO | TODO | TODO |
+| Additional | TODO | TODO | TODO |
 
-## Before submitting
-Complete PROJECT-PLAN.md, TEST-LOG.md, and AI-Use-Report.md. Submit your source, README, test evidence, and showcase materials through your professor's specified method. Keep .github and .vscode. Do not upload a JDK or JavaFX SDK.
+Submit your source, this completed README, AI report, test screenshot/evidence, and showcase materials through your professor's specified method. Keep .github and .vscode; do not upload SDKs or JDKs.
 
-## Instructor VM check
-A usable full JDK, Java extensions, and matching JavaFX SDK are still required. If the VM lacks them or blocks execution, IT assistance is needed. The repository cannot configure protected VM settings. Verify the installation-test window on the actual VM before distributing to students.
+## If it does not run
+- **Imports unresolved:** check the `lib/*.jar` path in settings; allow Java to reload.
+- **Module not found:** the run prompt needs the extracted `lib` folder, not a ZIP or bin.
+- **Runtime components missing:** select **Run Honors JavaFX**, not another Run Java configuration.
+- **No application found:** fix compilation errors and keep root Java files without packages.
+- **Unsupported class version:** check JDK/JavaFX compatibility.
+- **JAVA_HOME or missing JDK:** this setup avoids Maven, but cannot supply a missing JDK or change protected VM settings; contact IT.
+
+The professor must verify the test window on the actual VM before distribution.
+
+References: [OpenJFX](https://openjfx.io/openjfx-docs/) · [VS Code variables](https://code.visualstudio.com/docs/reference/variables-reference)
