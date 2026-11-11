@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Honors JavaFX Application",
+      "request": "launch",
+      "mainClass": "edu.ccm.HonorsLauncher",
+      "projectName": "cmp128-honors-gui",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "javaExec": "${input:javaExecutable}",
+      "args": [
+        "${input:applicationClass}"
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "javaExecutable",
+      "type": "promptString",
+      "description": "Full path to installed JDK bin/java.exe (Windows) or bin/java (Mac/Linux), without quotes"
+    },
+    {
+      "id": "applicationClass",
+      "type": "promptString",
+      "description": "Fully qualified JavaFX Application class name, not a file path",
+      "default": "edu.ccm.JavaFXInstallTest"
+    }
+  ]
+}

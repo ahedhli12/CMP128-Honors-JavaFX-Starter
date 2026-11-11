@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build and run honors GUI with Maven",
+      "type": "shell",
+      "command": "${input:mavenExecutable}",
+      "args": [
+        "clean",
+        "javafx:run",
+        "-Dapp.class=${input:applicationClass}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "JAVA_HOME": "${input:jdkHome}"
+        }
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "mavenExecutable",
+      "type": "promptString",
+      "description": "Full path to installed Maven bin/mvn.cmd on Windows or bin/mvn on Mac/Linux, without quotes"
+    },
+    {
+      "id": "applicationClass",
+      "type": "promptString",
+      "description": "Fully qualified application class name",
+      "default": "edu.ccm.JavaFXInstallTest"
+    },
+    {
+      "id": "jdkHome",
+      "type": "promptString",
+      "description": "Full JDK ROOT folder path (not bin, not java.exe), without quotes"
+    }
+  ]
+}
