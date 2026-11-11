@@ -1,6 +1,6 @@
 # CMP 128 Honors JavaFX Starter
 
-Use this starter for your professor's Honors GUI project. It includes a working installation test and an automatic application launcher.
+Prepared for the CMP 128 Honors Option class. Follow your course professor's project and submission requirements. It includes a working installation test and an automatic application launcher.
 
 ## Setup
 1. Create your own copy of this repository, clone it, and open the whole folder in VS Code.
@@ -13,11 +13,14 @@ Use this starter for your professor's Honors GUI project. It includes a working 
      "C:/Users/Student/Downloads/javafx-sdk-21/lib/*.jar"
    ]
    ```
-6. Save. Open **Run and Debug** with **Ctrl+Shift+D**, select **Run Honors JavaFX**, and click Run.
-7. When prompted, paste that same **lib folder path**, without quotation marks or `/*.jar`:
-   ```text
-   C:/Users/Student/Downloads/javafx-sdk-21/lib
+6. In `.vscode/launch.json`, replace the example module path with that same **lib folder**, without `/*.jar`:
+   ```json
+   "vmArgs": "--module-path \"C:/Users/Student/Downloads/javafx-sdk-21/lib\" --add-modules javafx.controls"
    ```
+   Keep the escaped quotes shown in the actual launch.json file.
+7. Save both files. Open **Run and Debug** with **Ctrl+Shift+D**, select **Run Honors JavaFX**, and click Run. **There is no SDK-path popup.**
+
+Use your own computer's path in both files, not the instructor's username. Forward slashes are simplest in JSON. The two paths must refer to the same extracted SDK.
 
 No Maven or project-generation wizard is needed. This manual SDK setup replaces the Maven setup section of the original handout. An installed JDK is still required. Select it with **Java: Configure Java Runtime**; ask IT if the VM prevents this.
 
@@ -59,7 +62,7 @@ Submit your source, this completed README, AI report, test screenshot/evidence, 
 
 ## If it does not run
 - **Imports unresolved:** check the `lib/*.jar` path in settings; allow Java to reload.
-- **Module not found:** the run prompt needs the extracted `lib` folder, not a ZIP or bin.
+- **Module not found:** the module path in launch.json must point to the extracted `lib` folder, not a ZIP or bin.
 - **Runtime components missing:** select **Run Honors JavaFX**, not another Run Java configuration.
 - **No application found:** fix compilation errors and keep root Java files without packages.
 - **Unsupported class version:** check JDK/JavaFX compatibility.

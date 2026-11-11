@@ -11,6 +11,11 @@ import javafx.stage.Stage;
 public class JavaFXInstallTest extends Application {
     private int clickCount = 0;
 
+    // Entry point for tools that require a main method.
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) {
         Label status = new Label("JavaFX started successfully.");

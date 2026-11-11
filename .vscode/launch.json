@@ -8,14 +8,7 @@
       "mainClass": "HonorsLauncher",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "vmArgs": "--module-path \"${input:javafxLibPath}\" --add-modules javafx.controls"
-    }
-  ],
-  "inputs": [
-    {
-      "id": "javafxLibPath",
-      "type": "promptString",
-      "description": "Paste your extracted JavaFX SDK lib folder path, without quotes. It must contain javafx.controls.jar."
+      "vmArgs": "--module-path \"C:/REPLACE-WITH-YOUR-JAVAFX-SDK/lib\" --add-modules javafx.controls"
     }
   ]
 }
