@@ -1,4 +1,10 @@
 {
-  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.project.sourcePaths": [
+    "."
+  ],
+  "java.project.outputPath": "bin",
+  "java.project.referencedLibraries": [
+    "C:/REPLACE-WITH-YOUR-JAVAFX-SDK/lib/*.jar"
+  ],
   "java.debug.settings.onBuildFailureProceed": false
 }

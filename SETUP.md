@@ -1,82 +1,74 @@
-# JavaFX setup in VS Code
+# Simple JavaFX setup for CMP 128
 
-## 1. Open this project
-Open the folder containing pom.xml, not only one Java file. Install Microsoft's Extension Pack for Java if permitted, or ask IT to enable it. Do not create another JavaFX project using the wizard.
+## 1. Open the folder
+Open the repository folder in VS Code. Use Microsoft's Extension Pack for Java. If your VM already has it, do not reinstall it.
 
-## 2. Locate the installed JDK
-Use a full JDK 21, as recommended in the project instructions. Ask IT for its installed path if necessary. A newer approved JDK may also compile release 21, but your professor should standardize the class environment.
+Use an installed full JDK and a compatible JavaFX SDK. JDK 21 with JavaFX SDK 21 is a straightforward baseline matching the original project's recommended JDK. Ask IT which JDK is installed; do not assume the newest SDK matches it.
 
-Three paths have different purposes:
-| Path | What it contains | Where it is used |
-|---|---|---|
-| JDK root, e.g. C:/Program Files/Java/jdk-21 | bin plus other JDK folders | JAVA_HOME |
-| JDK bin/java.exe | Java executable | VS Code launch prompt |
-| JavaFX SDK lib | javafx.controls.jar and other JavaFX libraries | Manual SDK module path only |
+## 2. Extract the JavaFX SDK
+Download the SDK for your operating system and architecture from https://gluonhq.com/products/javafx/ and extract the ZIP.
 
-**This repository uses Maven. You do not need a separate JavaFX SDK path or module-path arguments for its normal launch.**
+Open its **lib** folder. It must contain javafx.controls.jar, javafx.graphics.jar, and javafx.base.jar. Copy this folder's full path.
 
-Open Command Palette → **Java: Configure Java Runtime** and select the installed JDK for this project. If needed, edit VS Code **User Settings JSON** (not Windows system environment variables) to add:
+**JavaFX lib** is used for the libraries. **JDK bin** contains java.exe and javac.exe. They are different folders.
+
+## 3. Enter the library path once in settings
+Open .vscode/settings.json. Replace:
 ```json
-"java.configuration.runtimes": [
-  {
-    "name": "JavaSE-21",
-    "path": "C:/REPLACE-WITH-ACTUAL-JDK-ROOT",
-    "default": true
-  }
-]
+"C:/REPLACE-WITH-YOUR-JAVAFX-SDK/lib/*.jar"
 ```
-Use the real path. Do not paste this as a second separate JSON object into existing settings. User settings availability depends on VM policy.
+with your actual SDK lib path followed by /*.jar, for example:
+```json
+"C:/Users/Student/Downloads/javafx-sdk-21/lib/*.jar"
+```
+Use forward slashes in this JSON value. Keep the other settings. This tells VS Code where the libraries are for compiling your code.
 
-The Java language server can have its own newer JDK requirement. If the Java extension itself cannot start, ask IT to configure its supported tooling JDK; changing a project runtime does not fix a missing tooling runtime.
+## 4. Run
+1. Save your files.
+2. Press Ctrl+Shift+D.
+3. Select **Run Honors JavaFX**.
+4. Click the green Run arrow.
+5. When prompted, paste the same SDK **lib folder path**, without /*.jar and without quotation marks.
+6. If a numbered application menu appears, click the terminal, type the desired number, and press Enter.
 
-## 3. Wait for Maven import
-Allow VS Code to load pom.xml and its JavaFX dependencies. Internet access is needed for the first download unless they are already cached. JavaFX comes from Maven; do not mix in SDK 25/26/27 JARs.
+For the example above, the run prompt receives:
+```text
+C:/Users/Student/Downloads/javafx-sdk-21/lib
+```
+The path in settings is for compilation; the prompt is for running. Both must use the same SDK. You do not edit a Java class name in either JSON file.
 
-## 4. Run the installation test
-1. Press Ctrl+Shift+D.
-2. Select **Run Honors JavaFX Application**.
-3. Click the green arrow.
-4. At the Java executable prompt, paste the full path to your installed JDK's **bin/java.exe**, without surrounding quotes.
-5. At the application-class prompt, accept **edu.ccm.JavaFXInstallTest**.
-6. Enter a name and click the button. A greeting and click count should appear.
-7. Close the window before starting another run.
+Test the supplied window by entering a name and pressing its button. Close it before launching again.
 
-On macOS/Linux, provide the JDK's bin/java executable instead. Maven must resolve the platform-specific JavaFX dependencies for that computer.
+## 5. Write your application
+Put your Java source in the project root alongside HonorsLauncher.java. Use no package declaration in this beginner layout. Your application must extend javafx.application.Application and implement start(Stage stage).
 
-The launcher is a plain Java main class that starts JavaFX. Keep HonorsLauncher.java unchanged. No active-file variable is used, so opening settings.json cannot turn it into the main class.
+If you rename the source file, rename its public class to match. For example, GradeTracker.java contains public class GradeTracker. The launcher finds it automatically after compilation.
 
-## 5. If JAVA_HOME prevents a Maven build
-Use Terminal → **Run Task → Build and run honors GUI with Maven**.
-The prompts ask for:
-1. Full Maven executable path, such as the installed .../bin/mvn.cmd on Windows; use the actual executable supplied by IT.
-2. The application class, initially edu.ccm.JavaFXInstallTest.
-3. **JDK root folder**, not bin and not java.exe.
+Keep the installation test if you want. The launcher shows a menu when both it and your project are present. Ordinary helper classes do not appear in that menu.
 
-The task passes JAVA_HOME only to the Maven process it starts. It does not edit Windows system settings and does not require environment-variable administration rights by itself. VM policy must still permit running the installed executables.
+## If the VM reports JAVA_HOME
+This manual setup avoids the Maven wizard that produced the original JAVA_HOME error. It still needs a full JDK.
 
-The Maven extension does not guarantee that a terminal mvn command is available. If Maven is missing, IT must install/provide it. A ZIP containing JavaFX is not a JDK or Maven installation.
+Open **Java: Configure Java Runtime** in the Command Palette to select an installed project JDK. If necessary, add java.configuration.runtimes in VS Code User Settings using the actual JDK root path. Do not put the JavaFX SDK path there.
 
-## 6. Add or rename your application
-Create src/main/java/edu/ccm/GradeTracker.java, for example. Its first line is `package edu.ccm;`, its public class is GradeTracker, and it extends Application. Implement start(Stage stage).
+If your VM does not have a usable JDK or restricts user settings/executable access, ask IT. Do not change protected system settings or assume a network drive installation is available.
 
-Run the existing configuration and enter **edu.ccm.GradeTracker**. Do not enter GradeTracker.java or its disk path. Multiple Application classes can coexist because you explicitly choose one. Other helper classes can be used normally; they are not application entry points.
+## Common errors
+| Error | What to check |
+|---|---|
+| JavaFX imports cannot be resolved | settings.json must point to the extracted lib/*.jar; save and allow Java to reload |
+| JavaFX runtime components missing | Select Run Honors JavaFX rather than a different Run Java configuration |
+| Module javafx.controls not found | Paste the lib directory, not a ZIP, bin directory, or individual JAR |
+| Main class settings or launch not found | Use the supplied HonorsLauncher configuration, not a current-file configuration |
+| No Application found | Fix compilation errors; keep your source in the root with no package declaration |
+| Unsupported class version | Select a JDK compatible with the SDK; use the approved matching baseline |
+| Several applications found | Choose a number in the integrated terminal |
+| Java extension cannot start | IT may need to configure the Java language server's own supported tooling JDK |
 
-For another package, match its folders and package declaration, then enter its full package-and-class name.
+After fixing library settings, **Java: Clean Java Language Server Workspace** can refresh stale errors.
 
-## Troubleshooting
-- **Main class settings or launch not found:** select the supplied configuration; do not use a current-file launch configuration.
-- **JavaFX runtime components missing:** run HonorsLauncher through the supplied configuration, after Maven import. Remove old duplicate configurations from your own copy if they cause confusion.
-- **JavaFX imports unresolved:** open the project root, wait for Maven import, check dependency access, then try Java: Clean Java Language Server Workspace.
-- **Class not found:** check the package, public class name, filename, source folder, and compilation errors.
-- **Not a JavaFX Application:** enter a class that extends javafx.application.Application.
-- **Executable not found:** check the exact path and VM execution permissions.
-- **Unsupported release/class version:** check the selected JDK; this starter targets release 21.
-- **Window does not open in a VM:** confirm the VM has a working graphical desktop and displays application windows; preserve the exact error for IT.
-
-## Validation limit
-The files are supplied as a starter. The professor should run Phase 0 on the actual college VM before distributing it to all students.
+The source and configuration have been reviewed, but the professor must verify the GUI on the actual college VM.
 
 References:
-- https://code.visualstudio.com/docs/java/java-project
-- https://code.visualstudio.com/docs/java/java-debugging
 - https://openjfx.io/openjfx-docs/
+- https://code.visualstudio.com/docs/java/java-project

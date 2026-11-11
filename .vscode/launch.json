@@ -3,29 +3,19 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Run Honors JavaFX Application",
+      "name": "Run Honors JavaFX",
       "request": "launch",
-      "mainClass": "edu.ccm.HonorsLauncher",
-      "projectName": "cmp128-honors-gui",
+      "mainClass": "HonorsLauncher",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
-      "javaExec": "${input:javaExecutable}",
-      "args": [
-        "${input:applicationClass}"
-      ]
+      "vmArgs": "--module-path \"${input:javafxLibPath}\" --add-modules javafx.controls"
     }
   ],
   "inputs": [
     {
-      "id": "javaExecutable",
+      "id": "javafxLibPath",
       "type": "promptString",
-      "description": "Full path to installed JDK bin/java.exe (Windows) or bin/java (Mac/Linux), without quotes"
-    },
-    {
-      "id": "applicationClass",
-      "type": "promptString",
-      "description": "Fully qualified JavaFX Application class name, not a file path",
-      "default": "edu.ccm.JavaFXInstallTest"
+      "description": "Paste your extracted JavaFX SDK lib folder path, without quotes. It must contain javafx.controls.jar."
     }
   ]
 }
