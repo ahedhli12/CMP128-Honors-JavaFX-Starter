@@ -14,7 +14,8 @@ public class JavaFXInstallTest extends Application {
     // Remember how many successful button clicks have occurred.
     private int clickCount = 0;
 
-    // Standard Java entry point. The supplied HonorsLauncher can also run this class.
+    // Standard Java entry point.
+    // For the saved SDK settings, use Run and Debug > Run Honors JavaFX.
     public static void main(String[] args) {
         launch(args);
     }
